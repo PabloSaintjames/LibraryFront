@@ -1,0 +1,16 @@
+@if (articulos().length > 0) {
+  <ul>
+    @for (a of articulos(); track a.id) {
+      <li>
+        <strong>{{ a.titulo }}</strong>
+        @if (a.alquilado) {
+          ❌ Alquilado
+        } @else {
+          ✅ Disponible
+        }
+      </li>
+    }
+  </ul>
+} @else {
+  <p>No hay artículos disponibles</p>
+}
