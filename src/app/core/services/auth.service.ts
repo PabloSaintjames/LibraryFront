@@ -4,45 +4,52 @@ export interface UsuarioAuth {
   id: number;
   nombre: string;
   rol: string;
-  token: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private _usuario = signal<UsuarioAuth | null>(null);
+  private _usuario = signal<UsuarioAuth | null>(this.getUsuarioStorage());
+  private _token = signal<string | null>(localStorage.getItem('token'));
 
-  constructor() {
-    const saved = localStorage.getItem('usuario');
-    if (saved) {
-      this._usuario.set(JSON.parse(saved));
-    }
-  }
+  login(data: any) {
+    const usuario: UsuarioAuth = {
+      id: data.id,
+      nombre: data.nombre,
+      rol: data.rol,
+    };
 
-  login(usuario: UsuarioAuth) {
     this._usuario.set(usuario);
+    this._token.set(data.token);
+
     localStorage.setItem('usuario', JSON.stringify(usuario));
+    localStorage.setItem('token', data.token);
   }
 
   logout() {
     this._usuario.set(null);
-    localStorage.removeItem('usuario');
+    this._token.set(null);
+    localStorage.clear();
   }
 
   usuario() {
     return this._usuario();
   }
 
-  token(): string | null {
-    return this._usuario()?.token ?? null;
+  token() {
+    return this._token();
   }
 
-  isLogged(): boolean {
-    return !!this._usuario();
+  isLoggedIn(): boolean {
+    return !!this._token();
   }
 
   hasRole(...roles: string[]): boolean {
-    const rol = this._usuario()?.rol;
-    return rol ? roles.includes(rol) : false;
+    return !!this._usuario() && roles.includes(this._usuario()!.rol);
+  }
+
+  private getUsuarioStorage(): UsuarioAuth | null {
+    const u = localStorage.getItem('usuario');
+    return u ? JSON.parse(u) : null;
   }
 }

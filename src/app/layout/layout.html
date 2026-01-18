@@ -1,17 +1,13 @@
-<div class="app-shell">
+<app-navbar></app-navbar>
 
-  <!-- NAVBAR -->
-  <app-navbar></app-navbar>
+<div class="body">
+  <aside class="sidebar">
+    <a routerLink="/articulos">Artículos</a>
+    <a routerLink="/alquileres">Alquileres</a>
+    <a routerLink="/usuarios">Usuarios</a>
+  </aside>
 
-  <div class="body">
-
-    <!-- SIDEBAR -->
-    <app-sidebar></app-sidebar>
-
-    <!-- CONTENIDO -->
-    <main class="content">
-      <router-outlet></router-outlet>
-    </main>
-
-  </div>
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
 </div>

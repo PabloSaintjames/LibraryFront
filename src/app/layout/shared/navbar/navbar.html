@@ -1,9 +1,13 @@
 <header class="navbar">
-  <h1>Library Demo</h1>
+  <span class="title">📚 Library Demo</span>
 
-  <div class="user-info">
-    @if (auth.usuario()) {
-      👤 {{ auth.usuario()?.nombre }} ({{ auth.usuario()?.rol }})
-    }
-  </div>
+  @if (auth.usuario()) {
+    <span class="user">
+      👤 {{ auth.usuario()?.nombre }}
+      <strong>({{ auth.usuario()?.rol }})</strong>
+      <button (click)="auth.logout()">Logout</button>
+    </span>
+  } @else {
+    <span>No autenticado</span>
+  }
 </header>
