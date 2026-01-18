@@ -8,16 +8,19 @@ import { Articulo } from '../../features/articulos/articulo.model';
 })
 export class ArticuloService {
 
-  private readonly API_URL = 'http://localhost:8080/api/articulos';
+  private readonly API_URL = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Articulo[]> {
-    return this.http.get<Articulo[]>(this.API_URL);
+    return this.http.get<Articulo[]>(`${this.API_URL}/articulos`);
   }
 
-
-  getDisponibles(): Observable<Articulo[]> {
-    return this.http.get<Articulo[]>(`${this.API_URL}/disponibles`);
+  alquilar(usuarioId: number, articuloId: number) {
+    return this.http.post(`${this.API_URL}/alquileres`, {
+      usuarioId,
+      articuloId
+    });
   }
+
 }

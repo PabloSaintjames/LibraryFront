@@ -1,7 +1,9 @@
-<nav class="navbar">
-  <span class="logo">📚 Biblioteca</span>
+<header class="navbar">
+  <h1>Library Demo</h1>
 
-  <span class="usuario">
-    👤 {{ usuario().nombre }} ({{ usuario().rol }})
-  </span>
-</nav>
+  <div class="user-info">
+    @if (auth.usuario()) {
+      👤 {{ auth.usuario()?.nombre }} ({{ auth.usuario()?.rol }})
+    }
+  </div>
+</header>

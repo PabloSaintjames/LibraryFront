@@ -1,16 +1,27 @@
-@if (articulos().length > 0) {
-  <ul>
-    @for (a of articulos(); track a.id) {
-      <li>
-        <strong>{{ a.titulo }}</strong>
-        @if (a.alquilado) {
-          ❌ Alquilado
-        } @else {
-          ✅ Disponible
-        }
-      </li>
-    }
-  </ul>
-} @else {
-  <p>No hay artículos disponibles</p>
+<h2>📚 Artículos</h2>
+
+@if (mensaje()) {
+  <div class="alert success">{{ mensaje() }}</div>
 }
+
+<ul class="card-list">
+  @for (a of articulos(); track a.id) {
+    <div class="card">
+      <strong>{{ a.titulo }}</strong>
+
+      @if (!a.alquilado) {
+
+        @if (authService.hasRole('USUARIO', 'OPERARIO', 'ADMINISTRADOR')) {
+          <button (click)="alquilar(a.id)">
+            Alquilar
+          </button>
+        } @else {
+          <span class="muted">🔒 Solo usuarios registrados</span>
+        }
+
+      } @else {
+        <span>❌ Alquilado</span>
+      }
+    </div>
+  }
+</ul>

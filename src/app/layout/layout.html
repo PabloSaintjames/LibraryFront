@@ -1,19 +1,17 @@
-<div class="layout">
-  <header class="navbar">
-    <h1>Library Demo</h1>
-  </header>
+<div class="app-shell">
 
-  <div class="content">
-    <aside class="sidebar">
-      <nav>
-        <a routerLink="/articulos">Artículos</a>
-        <a routerLink="/alquileres">Alquileres</a>
-        <a routerLink="/usuarios">Usuarios</a>
-      </nav>
-    </aside>
+  <!-- NAVBAR -->
+  <app-navbar></app-navbar>
 
-    <main class="main">
+  <div class="body">
+
+    <!-- SIDEBAR -->
+    <app-sidebar></app-sidebar>
+
+    <!-- CONTENIDO -->
+    <main class="content">
       <router-outlet></router-outlet>
     </main>
+
   </div>
 </div>
