@@ -1,0 +1,31 @@
+.landing-wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-card {
+  text-align: center;
+  padding: 48px 56px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  background: white;
+}
+
+.logo {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 8px 0 32px;
+  font-size: 16px;
+  opacity: 0.75;
+}

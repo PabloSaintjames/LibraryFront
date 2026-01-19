@@ -1,35 +1,27 @@
 import { Injectable, signal } from '@angular/core';
-
-export interface UsuarioAuth {
-  id: number;
-  nombre: string;
-  rol: string;
-}
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private _usuario = signal<UsuarioAuth | null>(this.getUsuarioStorage());
-  private _token = signal<string | null>(localStorage.getItem('token'));
+  private _usuario = signal<any | null>(null);
+  private _token = signal<string | null>(null);
+
+  constructor(private router: Router) {}
 
   login(data: any) {
-    const usuario: UsuarioAuth = {
+    this._usuario.set({
       id: data.id,
       nombre: data.nombre,
-      rol: data.rol,
-    };
-
-    this._usuario.set(usuario);
+      rol: data.rol
+    });
     this._token.set(data.token);
-
-    localStorage.setItem('usuario', JSON.stringify(usuario));
-    localStorage.setItem('token', data.token);
   }
 
   logout() {
     this._usuario.set(null);
     this._token.set(null);
-    localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
   usuario() {
@@ -40,16 +32,11 @@ export class AuthService {
     return this._token();
   }
 
-  isLoggedIn(): boolean {
+  isAuthenticated() {
     return !!this._token();
   }
 
-  hasRole(...roles: string[]): boolean {
-    return !!this._usuario() && roles.includes(this._usuario()!.rol);
-  }
-
-  private getUsuarioStorage(): UsuarioAuth | null {
-    const u = localStorage.getItem('usuario');
-    return u ? JSON.parse(u) : null;
+  hasRole(...roles: string[]) {
+    return this._usuario() && roles.includes(this._usuario()!.rol);
   }
 }

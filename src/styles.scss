@@ -1,0 +1,110 @@
+/* You can add global styles to this file, and also import other style files */
+/* ====== LAYOUT ====== */
+.app-shell {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+.navbar {
+  height: 60px;
+  background: #1976d2;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  font-size: 18px;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+}
+
+.sidebar {
+  width: 220px;
+  background: #263238;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebar a {
+  color: #eceff1;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.sidebar a:hover {
+  background: #37474f;
+}
+
+.content {
+  flex: 1;
+  padding: 24px;
+  background: #f5f5f5;
+}
+
+/* ====== COMPONENTS ====== */
+.card-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.1);
+}
+
+.btn {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: #1976d2;
+  color: white;
+}
+
+.btn.warn {
+  background: #f57c00;
+  color: white;
+}
+
+.btn:disabled {
+  background: #b0bec5;
+  cursor: not-allowed;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.badge.success {
+  background: #c8e6c9;
+  color: #2e7d32;
+}
+
+.badge.danger {
+  background: #ffcdd2;
+  color: #c62828;
+}
+
+.alert.success {
+  background: #e8f5e9;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}

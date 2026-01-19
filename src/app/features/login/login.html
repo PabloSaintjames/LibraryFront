@@ -1,19 +1,59 @@
-<h2>Login</h2>
+<div class="page-wrapper">
 
-<form (ngSubmit)="login()">
-  <label>
-    Email
-    <input type="email" [(ngModel)]="email" name="email" required />
-  </label>
+  <mat-card class="login-card">
 
-  <label>
-    Password
-    <input type="password" [(ngModel)]="password" name="password" required />
-  </label>
+    <h2 class="title">Login</h2>
 
-  <button type="submit">Entrar</button>
-</form>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
 
-@if (error) {
-  <p class="error">{{ error }}</p>
-}
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" />
+
+        @if (loginForm.get('email')?.hasError('required')) {
+          <mat-error>El email es obligatorio</mat-error>
+        }
+
+        @if (loginForm.get('email')?.hasError('email')) {
+          <mat-error>Email inválido</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+
+        @if (loginForm.get('password')?.hasError('required')) {
+          <mat-error>La contraseña es obligatoria</mat-error>
+        }
+      </mat-form-field>
+
+      <div class="buttons">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="loginForm.invalid"
+        >
+          Login
+        </button>
+
+        <button
+          mat-stroked-button
+          color="accent"
+          type="button"
+          (click)="register()"
+        >
+          Register
+        </button>
+      </div>
+
+    </form>
+
+    @if (error) {
+      <p class="error">{{ error }}</p>
+    }
+
+  </mat-card>
+
+</div>

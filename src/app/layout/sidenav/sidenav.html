@@ -1,0 +1,15 @@
+<h3 class="menu-title">Biblioteca</h3>
+
+<nav class="menu">
+  @for (item of menu; track item.route) {
+    <a
+      mat-button
+      class="menu-item"
+      [routerLink]="item.route"
+      routerLinkActive="active"
+    >
+      <mat-icon>{{ item.icon }}</mat-icon>
+      <span>{{ item.label }}</span>
+    </a>
+  }
+</nav>

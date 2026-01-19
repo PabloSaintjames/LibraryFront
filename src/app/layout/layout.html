@@ -1,13 +1,28 @@
-<app-navbar></app-navbar>
+<mat-sidenav-container class="sidenav-container">
 
-<div class="body">
-  <aside class="sidebar">
-    <a routerLink="/articulos">Artículos</a>
-    <a routerLink="/alquileres">Alquileres</a>
-    <a routerLink="/usuarios">Usuarios</a>
-  </aside>
+  <!-- SIDENAV -->
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    [mode]="isMobile() ? 'over' : 'side'"
+    [opened]="!isMobile()"
+  >
+    <app-sidenav></app-sidenav>
+  </mat-sidenav>
 
-  <main class="content">
-    <router-outlet></router-outlet>
-  </main>
-</div>
+  <!-- CONTENIDO -->
+  <mat-sidenav-content>
+
+    <!-- TOOLBAR -->
+    <app-toolbar
+      (menuToggle)="drawer.toggle()"
+    ></app-toolbar>
+
+    <!-- ROUTER -->
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
