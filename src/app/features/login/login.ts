@@ -53,7 +53,7 @@ export class LoginComponent {
     this.http.post<any>(this.API, this.loginForm.value).subscribe({
       next: (res) => {
         this.authService.login(res);
-        this.router.navigate(['/articulos']);
+        this.router.navigate(['/app/articulos']);
       },
       error: () => {
         this.error = 'Credenciales incorrectas';
@@ -65,3 +65,5 @@ export class LoginComponent {
     this.router.navigate(['/register']);
   }
 }
+
+
