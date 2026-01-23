@@ -1,67 +1,68 @@
 .login-wrapper {
   min-height: 100vh;
+  background-color: var(--app-shell-bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #1f1f1f; /* MISMO fondo */
 }
 
+/* Card */
 .login-card {
   text-align: center;
   padding: 48px 56px;
   border-radius: 20px;
-  background: #2b2b2b;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  background-color: var(--surface-bg);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
   max-width: 420px;
   width: 100%;
-  color: #f5f5f5;
+  color: var(--text-primary);
 }
 
+/* Logo */
 .logo {
   font-size: 56px;
   margin-bottom: 12px;
 }
 
+/* Título */
 h1 {
   margin: 0;
   font-size: 28px;
   font-weight: 600;
   letter-spacing: 6px;
+  color: var(--text-primary);
 }
 
+/* Subtítulo */
 .subtitle {
   margin: 8px 0 32px;
   font-size: 13px;
   letter-spacing: 3px;
-  opacity: 0.8;
+  color: var(--text-secondary);
 }
 
+/* Inputs */
 .full-width {
   width: 100%;
   margin-bottom: 16px;
 }
 
+/* Botón principal */
 .cta {
   width: 100%;
   margin-top: 16px;
   padding: 10px 0;
 }
 
+/* Texto secundario */
 .secondary {
   margin-top: 8px;
-  color: #bdbdbd;
+  color: var(--text-secondary);
 }
 
+/* Error */
 .error {
   margin-top: 16px;
-  color: #ef5350;
+  color: #ef4444;
   font-size: 14px;
-}
-
-.login-wrapper {
-  min-height: 100vh;
-  background: #1f1f1f; /* mismo antracita */
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
