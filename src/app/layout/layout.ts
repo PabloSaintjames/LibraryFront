@@ -25,7 +25,7 @@ import { ThemeService } from '../core/services/theme.service';
     ToolbarComponent
   ],
   templateUrl: './layout.html',
-  styleUrls: ['./layout.css']
+  styleUrls: ['./layout.scss']
 })
 export class LayoutComponent {
 

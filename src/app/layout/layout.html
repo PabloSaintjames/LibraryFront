@@ -1,4 +1,10 @@
-<mat-sidenav-container class="sidenav-container">
+<!-- NAVBAR (SIEMPRE ARRIBA) -->
+<app-toolbar
+  (menuToggle)="drawer.toggle()"
+></app-toolbar>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<mat-sidenav-container class="layout-container">
 
   <!-- SIDENAV -->
   <mat-sidenav
@@ -11,18 +17,10 @@
   </mat-sidenav>
 
   <!-- CONTENIDO -->
-  <mat-sidenav-content>
-
-    <!-- TOOLBAR -->
-    <app-toolbar
-      (menuToggle)="drawer.toggle()"
-    ></app-toolbar>
-
-    <!-- ROUTER -->
+  <mat-sidenav-content class="layout-content">
     <main class="content">
       <router-outlet></router-outlet>
     </main>
-
   </mat-sidenav-content>
 
 </mat-sidenav-container>

@@ -1,22 +1,51 @@
-<div class="landing-wrapper">
-  <div class="landing-card">
+<div class="landing-root">
 
-    <div class="logo">
-      📚
+  <div class="center-content">
+
+    <div class="hero">
+      <div class="line top"></div>
+      <h1 class="title">LIBRARY</h1>
+      <div class="line bottom"></div>
     </div>
 
-    <h1>Biblioteca</h1>
-    <p class="subtitle">
-      Gestión de artículos, alquileres y usuarios
-    </p>
+    <div class="details">
+      <p class="subtitle">
+        EL LUGAR DONDE LAS AVENTURAS COBRAN VIDA
+      </p>
 
-    <button
-      mat-raised-button
-      color="primary"
-      routerLink="/login"
-    >
-      Acceder
-    </button>
+      <p class="author">
+        CREADA POR
+        <a
+          class="author-name"
+          href="https://github.com/PabloSaintjames"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          PABLO SANTIAGO ☕
+        </a>
+      </p>
+
+      <a
+        class="github"
+        href="https://github.com/PabloSaintjames"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        github.com/PabloSaintjames
+      </a>
+    </div>
+
+    <div class="cta-wrapper">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="goLogin()"
+      >
+        ADELANTE
+      </button>
+
+    </div>
 
   </div>
+
 </div>

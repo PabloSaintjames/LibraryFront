@@ -1,16 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-/* Services */
-import { MenuService } from '../../core/menu/menu';
+import { MenuService, MenuItem } from '../../core/services/menu.service';
 
-/* Material */
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
-/* Model */
-import { MenuItem } from '../../core/menu/menu-item';
 
 @Component({
   selector: 'app-sidenav',
@@ -26,7 +21,13 @@ import { MenuItem } from '../../core/menu/menu-item';
 })
 export class SidenavComponent {
 
+  @Output() navigate = new EventEmitter<void>();
+
   private menuService = inject(MenuService);
 
   readonly menu: MenuItem[] = this.menuService.getVisibleMenu();
+
+  onNavigate(): void {
+    this.navigate.emit();
+  }
 }

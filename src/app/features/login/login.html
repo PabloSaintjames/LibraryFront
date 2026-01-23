@@ -1,11 +1,19 @@
-<div class="page-wrapper">
+<div class="login-wrapper">
 
-  <mat-card class="login-card">
+  <div class="login-card">
 
-    <h2 class="title">Login</h2>
+    <div class="logo">
+      📚
+    </div>
+
+    <h3 class="menu-title">Library</h3>
+    <p class="subtitle">
+      Accede a la plataforma de gestión
+    </p>
 
     <form [formGroup]="loginForm" (ngSubmit)="login()">
 
+      <!-- EMAIL -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email</mat-label>
         <input matInput type="email" formControlName="email" />
@@ -19,8 +27,9 @@
         }
       </mat-form-field>
 
+      <!-- PASSWORD -->
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Password</mat-label>
+        <mat-label>Contraseña</mat-label>
         <input matInput type="password" formControlName="password" />
 
         @if (loginForm.get('password')?.hasError('required')) {
@@ -28,32 +37,36 @@
         }
       </mat-form-field>
 
-      <div class="buttons">
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          [disabled]="loginForm.invalid"
-        >
-          Login
-        </button>
+      <!-- BOTÓN PRINCIPAL -->
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="cta"
+        [disabled]="loginForm.invalid"
+      >
+        Entrar
+      </button>
 
-        <button
-          mat-stroked-button
-          color="accent"
-          type="button"
-          (click)="register()"
-        >
-          Register
-        </button>
-      </div>
+      <!-- BOTÓN SECUNDARIO -->
+      <button
+        mat-button
+        type="button"
+        class="secondary"
+        (click)="register()"
+      >
+        Crear cuenta
+      </button>
+
+      <!-- ERROR BACKEND -->
+      @if (error) {
+        <p class="error">
+          {{ error }}
+        </p>
+      }
 
     </form>
 
-    @if (error) {
-      <p class="error">{{ error }}</p>
-    }
-
-  </mat-card>
+  </div>
 
 </div>

@@ -1,31 +1,152 @@
-.landing-wrapper {
-  height: 100vh;
+.landing-root {
+  min-height: 100vh;
+  width: 100%;
+  background: #1f1f1f;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-.landing-card {
+.center-content {
   text-align: center;
-  padding: 48px 56px;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-  background: white;
+  color: #f5f5f5;
 }
 
-.logo {
+/* HERO */
+.hero {
+  animation: heroIn 1.2s ease-out forwards;
+}
+
+.title {
   font-size: 64px;
-  margin-bottom: 16px;
+  letter-spacing: 12px;
+  font-weight: 600;
+  margin: 28px 0;
 }
 
-h1 {
-  margin: 0;
-  font-size: 32px;
-  font-weight: 600;
+.line {
+  width: 0;
+  height: 2px;
+  background: #f5f5f5;
+  margin: 0 auto;
+}
+
+.line.top {
+  animation: lineIn 1s ease-out forwards;
+}
+
+.line.bottom {
+  animation: lineIn 1s ease-out forwards;
+  animation-delay: 0.15s;
+}
+
+/* DETAILS */
+.details {
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out forwards;
+  animation-delay: 1.6s;
 }
 
 .subtitle {
-  margin: 8px 0 32px;
-  font-size: 16px;
+  margin-top: 32px;
+  font-size: 14px;
+  letter-spacing: 4px;
+  opacity: 0.85;
+}
+
+.author {
+  margin-top: 16px;
+  font-size: 13px;
+  letter-spacing: 3px;
   opacity: 0.75;
+}
+
+.author-name {
+  color: #f5f5f5;
+  text-decoration: none;
+  position: relative;
+}
+
+.author-name::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  width: 0;
+  height: 1px;
+  background: #f5f5f5;
+  transform: translateX(-50%);
+  animation: underlineIn 0.8s ease-out forwards;
+  animation-delay: 2s;
+}
+
+.github {
+  display: block;
+  margin-top: 12px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #d1d1d1;
+  text-decoration: none;
+  opacity: 0.6;
+}
+
+.github:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* CTA */
+.cta-wrapper {
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out forwards;
+  animation-delay: 2.6s;
+}
+
+button {
+  margin-top: 36px;
+  padding: 10px 40px;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+/* ANIMATIONS */
+@keyframes heroIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lineIn {
+  from {
+    width: 0;
+  }
+  to {
+    width: 220px;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes underlineIn {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }

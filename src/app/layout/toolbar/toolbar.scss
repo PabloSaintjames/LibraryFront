@@ -1,17 +1,47 @@
 .toolbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.title {
+/* Botón menú */
+.menu-btn {
+  margin-right: 8px;
+}
+
+/* Título */
+.app-title {
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   font-weight: 500;
 }
 
+/* Spacer */
 .spacer {
   flex: 1;
 }
 
-.user-name {
-  margin-right: 8px;
+/* Usuario */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+}
+
+.user-icon {
+  font-size: 20px;
+  color: var(--text-secondary);
+}
+
+.username {
+  font-size: 14px;
+  white-space: nowrap;
+  color: var(--text-primary);
+}
+
+/* Logout */
+.logout {
+  margin-left: 8px;
 }

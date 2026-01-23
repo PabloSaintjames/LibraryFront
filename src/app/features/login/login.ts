@@ -52,14 +52,18 @@ export class LoginComponent {
 
     this.http.post<any>(this.API, this.loginForm.value).subscribe({
       next: (res) => {
+        console.log('LOGIN RESPONSE:', res);   // 👈 CLAVE
         this.authService.login(res);
+        console.log('TOKEN AFTER LOGIN:', this.authService.token());
         this.router.navigate(['/app/articulos']);
       },
-      error: () => {
+      error: (err) => {
+        console.error('LOGIN ERROR', err);
         this.error = 'Credenciales incorrectas';
       }
     });
   }
+
 
   register(): void {
     this.router.navigate(['/register']);

@@ -1,24 +1,28 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';import { Router } from '@angular/router';
 
-import { AuthService } from '../../core/services/auth.service';
+
 
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [
+    CommonModule,
+    RouterModule,      // 👈 CLAVE
+    MatButtonModule
+  ],
   templateUrl: './landing.html',
   styleUrls: ['./landing.scss']
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent {
 
-  private auth = inject(AuthService);
-  private router = inject(Router);
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    if (this.auth.isAuthenticated()) {
-      this.router.navigate(['/app/articulos']);
-    }
+  goLogin(): void {
+    console.log('CLICK ADELANTE');
+    this.router.navigate(['/login']);
   }
 }
+
