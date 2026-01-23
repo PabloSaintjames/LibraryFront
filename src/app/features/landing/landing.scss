@@ -1,16 +1,15 @@
 .landing-root {
   min-height: 100vh;
   width: 100%;
-  background: #1f1f1f;
+  background-color: var(--app-bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .center-content {
   text-align: center;
-  color: #f5f5f5;
+  color: var(--text-primary);
 }
 
 /* HERO */
@@ -28,7 +27,7 @@
 .line {
   width: 0;
   height: 2px;
-  background: #f5f5f5;
+  background-color: var(--text-primary);
   margin: 0 auto;
 }
 
@@ -52,18 +51,18 @@
   margin-top: 32px;
   font-size: 14px;
   letter-spacing: 4px;
-  opacity: 0.85;
+  color: var(--text-secondary);
 }
 
 .author {
   margin-top: 16px;
   font-size: 13px;
   letter-spacing: 3px;
-  opacity: 0.75;
+  color: var(--text-secondary);
 }
 
 .author-name {
-  color: #f5f5f5;
+  color: var(--text-primary);
   text-decoration: none;
   position: relative;
 }
@@ -75,7 +74,7 @@
   bottom: -3px;
   width: 0;
   height: 1px;
-  background: #f5f5f5;
+  background-color: var(--text-primary);
   transform: translateX(-50%);
   animation: underlineIn 0.8s ease-out forwards;
   animation-delay: 2s;
@@ -86,9 +85,8 @@
   margin-top: 12px;
   font-size: 13px;
   letter-spacing: 2px;
-  color: #d1d1d1;
-  text-decoration: none;
-  opacity: 0.6;
+  color: var(--text-secondary);
+  opacity: 0.8;
 }
 
 .github:hover {
@@ -103,50 +101,23 @@
   animation-delay: 2.6s;
 }
 
-button {
-  margin-top: 36px;
-  padding: 10px 40px;
-  font-size: 14px;
-  border-radius: 6px;
-}
-
-/* ANIMATIONS */
+/* Animaciones */
 @keyframes heroIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes lineIn {
-  from {
-    width: 0;
-  }
-  to {
-    width: 220px;
-  }
+  from { width: 0; }
+  to { width: 220px; }
 }
 
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes underlineIn {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+  from { width: 0; }
+  to { width: 100%; }
 }

@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-login',
   standalone: true,
   templateUrl: './login.html',
-  styleUrls: ['./login.css'],
+  styleUrls: ['./login.scss'],
   imports: [
     CommonModule,
     ReactiveFormsModule,

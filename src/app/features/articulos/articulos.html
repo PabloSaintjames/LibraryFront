@@ -1,27 +1,24 @@
-<h2>📚 Artículos</h2>
+<h2 class="section-title">📚 Artículos</h2>
 
-@if (mensaje()) {
-  <div class="alert success">{{ mensaje() }}</div>
+@if (mensaje) {
+  <div class="alert success">
+    {{ mensaje }}
+  </div>
 }
 
-<ul class="card-list">
-  @for (a of articulos(); track a.id) {
-    <div class="card">
-      <strong>{{ a.titulo }}</strong>
-
-      @if (!a.alquilado) {
-
-        @if (authService.hasRole('USUARIO', 'OPERARIO', 'ADMINISTRADOR')) {
-          <button (click)="alquilar(a.id)">
-            Alquilar
-          </button>
-        } @else {
-          <span class="muted">🔒 Solo usuarios registrados</span>
-        }
-
-      } @else {
-        <span>❌ Alquilado</span>
-      }
-    </div>
+<div class="card-grid">
+  @for (a of articulos; track a.id) {
+    <app-articulo-card
+      [articulo]="{
+        id: a.id,
+        titulo: a.titulo,
+        autor: a.autor,
+        disponible: !a.alquilado
+      }"
+      [puedeAlquilar]="authService.hasRole('USUARIO', 'OPERARIO', 'ADMINISTRADOR')"
+      [animando]="animandoId === a.id"
+      (alquilar)="alquilar(a.id)"
+    >
+    </app-articulo-card>
   }
-</ul>
+</div>

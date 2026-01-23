@@ -1,0 +1,54 @@
+<mat-card
+  class="book-card"
+  [class.animating]="animando"
+>
+
+
+<!-- PORTADA -->
+  <img
+    mat-card-image
+    src="assets/placeholder-book.jpg"
+    alt="Portada del libro"
+  />
+  <!-- OVERLAY ALQUILADO -->
+  @if (!articulo.disponible) {
+    <div class="overlay">
+      <span>ALQUILADO</span>
+    </div>
+  }
+
+  <!-- CONTENIDO -->
+  <mat-card-content>
+    <h3 class="title">{{ articulo.titulo }}</h3>
+
+    @if (articulo.autor) {
+      <p class="author">{{ articulo.autor }}</p>
+    }
+
+    @if (!articulo.disponible) {
+      <p class="status rented">❌ Alquilado</p>
+    }
+  </mat-card-content>
+
+  <!-- ACCIONES -->
+  <mat-card-actions align="end">
+
+    @if (articulo.disponible) {
+
+      @if (puedeAlquilar) {
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="alquilar.emit()"
+        >
+          Alquilar
+        </button>
+      } @else {
+        <span class="muted">🔒 Solo usuarios registrados</span>
+      }
+
+    }
+
+  </mat-card-actions>
+
+</mat-card>

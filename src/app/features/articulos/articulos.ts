@@ -1,32 +1,29 @@
-import { Component, OnInit, signal, effect } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ArticuloCardComponent } from './articulo-card/articulo-card';
 import { ArticuloService } from '../../core/services/articulo.service';
-import { ArticuloStateService } from '../../core/services/articulo-state.service';
-import { Articulo } from './articulo.model';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-articulos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    ArticuloCardComponent
+  ],
   templateUrl: './articulos.html',
+  styleUrls: ['./articulos.scss']
 })
 export class ArticulosComponent implements OnInit {
 
-  articulos = signal<Articulo[]>([]);
-  loadingId = signal<number | null>(null);
-  mensaje = signal<string | null>(null);
+  private articuloService = inject(ArticuloService);
+  authService = inject(AuthService);
 
-  constructor(
-    public authService: AuthService,
-    private articuloService: ArticuloService,
-    private articuloState: ArticuloStateService
-  ) {
-    effect(() => {
-      this.articuloState.refrescar$()();
-      this.cargarArticulos();
-    });
-  }
+  articulos: any[] = [];
+  mensaje = '';
+
+  /** id del artículo que está animando (al alquilar) */
+  animandoId: number | null = null;
 
   ngOnInit(): void {
     this.cargarArticulos();
@@ -34,25 +31,32 @@ export class ArticulosComponent implements OnInit {
 
   cargarArticulos(): void {
     this.articuloService.getAll().subscribe({
-      next: data => this.articulos.set(data),
-      error: () => this.mensaje.set('❌ Error cargando artículos'),
+      next: (data) => this.articulos = data,
+      error: () => this.mensaje = '❌ Error cargando artículos'
     });
   }
 
   alquilar(articuloId: number): void {
     const usuario = this.authService.usuario();
-    if (!usuario) return;
 
-    this.loadingId.set(articuloId);
-    this.mensaje.set(null);
+    if (!usuario) {
+      this.mensaje = '❌ Debes iniciar sesión';
+      return;
+    }
+
+    // activa animación solo en esa tarjeta
+    this.animandoId = articuloId;
 
     this.articuloService.alquilar(usuario.id, articuloId).subscribe({
       next: () => {
-        this.mensaje.set('✅ Artículo alquilado correctamente');
-        this.articuloState.refrescar();
+        this.mensaje = '✅ Artículo alquilado correctamente';
+        this.animandoId = null;
+        this.cargarArticulos();
       },
-      error: () => this.mensaje.set('❌ Error al alquilar'),
-      complete: () => this.loadingId.set(null),
+      error: () => {
+        this.animandoId = null;
+        this.mensaje = '❌ No se pudo alquilar el artículo';
+      }
     });
   }
 }
