@@ -3,17 +3,33 @@
   width: 100%;
 }
 
+/* =========================
+   TÍTULO DE SECCIÓN
+   ========================= */
+
 .section-title {
-  margin-bottom: 16px;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 500;
 }
+
+/* =========================
+   GRID DE TARJETAS
+   ========================= */
 
 .card-grid {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 24px;
+  align-items: stretch;
 }
 
-.alert.success {
-  margin-bottom: 16px;
+/* =========================
+   ALERTAS
+   ========================= */
+
+.alert {
+  margin-bottom: 20px;
 }

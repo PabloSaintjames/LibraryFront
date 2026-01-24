@@ -3,6 +3,12 @@ import { Injectable, signal } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
 
+  constructor() {
+    const dark = localStorage.getItem('dark') === 'true';
+    document.body.classList.toggle('dark-theme', dark);
+  }
+
+
   private dark = signal(true);
 
   toggle(): void {

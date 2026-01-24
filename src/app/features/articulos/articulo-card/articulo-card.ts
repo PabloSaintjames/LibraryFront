@@ -21,10 +21,21 @@ export class ArticuloCardComponent {
     titulo: string;
     autor?: string;
     disponible: boolean;
+    portadaUrl?: string | null;
   };
 
   @Input() puedeAlquilar = false;
-  @Input() animando = false;
 
   @Output() alquilar = new EventEmitter<void>();
+
+  animando = false;
+
+  onAlquilar(): void {
+    this.animando = true;
+
+    setTimeout(() => {
+      this.animando = false;
+      this.alquilar.emit();
+    }, 450);
+  }
 }

@@ -10,15 +10,18 @@
   @for (a of articulos; track a.id) {
     <app-articulo-card
       [articulo]="{
-        id: a.id,
-        titulo: a.titulo,
-        autor: a.autor,
-        disponible: !a.alquilado
-      }"
+    id: a.id,
+    titulo: a.titulo,
+    autor: a.autor,
+    disponible: !a.alquilado,
+    portadaUrl: a.isbn
+      ? 'https://covers.openlibrary.org/b/isbn/' + a.isbn + '-L.jpg'
+      : null
+  }"
       [puedeAlquilar]="authService.hasRole('USUARIO', 'OPERARIO', 'ADMINISTRADOR')"
-      [animando]="animandoId === a.id"
       (alquilar)="alquilar(a.id)"
     >
     </app-articulo-card>
+
   }
 </div>

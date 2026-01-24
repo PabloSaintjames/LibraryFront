@@ -4,3 +4,8 @@
   background-color: #e6fffa;
   border-left: 4px solid #38b2ac;
 }
+
+.section-title {
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
