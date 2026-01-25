@@ -18,8 +18,9 @@
       ? 'https://covers.openlibrary.org/b/isbn/' + a.isbn + '-L.jpg'
       : null
   }"
+      mode="alquilar"
       [puedeAlquilar]="authService.hasRole('USUARIO', 'OPERARIO', 'ADMINISTRADOR')"
-      (alquilar)="alquilar(a.id)"
+      (accion)="alquilar(a.id)"
     >
     </app-articulo-card>
 

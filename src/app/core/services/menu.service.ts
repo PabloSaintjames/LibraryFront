@@ -8,9 +8,7 @@ export interface MenuItem {
   roles?: string[];
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class MenuService {
 
   private auth = inject(AuthService);
@@ -19,23 +17,21 @@ export class MenuService {
     {
       label: 'Artículos',
       icon: 'menu_book',
-      route: 'articulos'
+      route: '/app/articulos'
     },
     {
       label: 'Alquileres',
       icon: 'inventory',
-      route: 'alquileres',
+      route: '/app/alquileres',
       roles: ['ADMINISTRADOR', 'OPERARIO']
     },
     {
       label: 'Usuarios',
-      icon: 'person',
-      route: 'usuarios',
+      icon: 'people',
+      route: '/app/usuarios',
       roles: ['ADMINISTRADOR']
     }
   ];
-
-
 
   getVisibleMenu(): MenuItem[] {
     return this.MENU.filter(item =>

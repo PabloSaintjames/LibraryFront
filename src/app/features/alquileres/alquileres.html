@@ -1,44 +1,24 @@
 <h2 class="section-title">📦 Alquileres</h2>
 
-@if (mensaje()) {
-  <div class="alert success">{{ mensaje() }}</div>
+@if (mensaje) {
+  <div class="alert success">
+    {{ mensaje }}
+  </div>
 }
 
-@if (alquileres().length === 0) {
-  <p>No hay alquileres activos</p>
-} @else {
-  <ul class="card-list">
-    @for (a of alquileres(); track a.id) {
-
-      <div class="card">
-        <strong>{{ a.articulo }}</strong>
-        <div>👤 {{ a.usuario }}</div>
-        <small>📅 {{ a.fechaAlquiler }}</small>
-
-        @if (a.vigente) {
-
-          @if (authService.hasRole('USUARIO', 'OPERARIO', 'ADMINISTRADOR')) {
-            <button
-              (click)="devolver(a.id)"
-              [disabled]="loadingId() === a.id">
-
-              @if (loadingId() === a.id) {
-                ⏳ Devolviendo...
-              } @else {
-                🔄 Devolver
-              }
-
-            </button>
-          } @else {
-            <span class="muted">🔒 No autorizado</span>
-          }
-
-        } @else {
-          <span>✅ Devuelto</span>
-        }
-
-      </div>
-    }
-
-  </ul>
+@if (alquileres.length === 0) {
+  <p class="empty">No tienes alquileres activos.</p>
 }
+
+<div class="card-grid">
+  @for (a of alquileres; track a.id) {
+
+    <app-articulo-card
+      [articulo]="toArticuloCard(a)"
+      mode="devolver"
+      (accion)="devolver(a.id)"
+    >
+    </app-articulo-card>
+
+  }
+</div>

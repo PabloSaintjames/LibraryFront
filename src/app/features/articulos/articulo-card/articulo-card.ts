@@ -24,18 +24,12 @@ export class ArticuloCardComponent {
     portadaUrl?: string | null;
   };
 
+  /** Modo de la tarjeta */
+  @Input() mode: 'alquilar' | 'devolver' = 'alquilar';
+
+  /** Permiso para alquilar */
   @Input() puedeAlquilar = false;
 
-  @Output() alquilar = new EventEmitter<void>();
-
-  animando = false;
-
-  onAlquilar(): void {
-    this.animando = true;
-
-    setTimeout(() => {
-      this.animando = false;
-      this.alquilar.emit();
-    }, 450);
-  }
+  /** Acción principal */
+  @Output() accion = new EventEmitter<void>();
 }

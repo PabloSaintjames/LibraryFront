@@ -11,6 +11,7 @@ import { UsuariosComponent } from './features/usuarios/usuarios';
 import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
+
   /* ===== PUBLIC ===== */
 
   {
@@ -29,11 +30,22 @@ export const routes: Routes = [
     component: LayoutComponent,
     canActivateChild: [authGuard],
     children: [
-      { path: 'articulos', component: ArticulosComponent },
-      { path: 'alquileres', component: AlquileresComponent },
-      { path: 'usuarios', component: UsuariosComponent }
+      {
+        path: 'articulos',
+        component: ArticulosComponent
+      },
+      {
+        path: 'alquileres',
+        component: AlquileresComponent
+      },
+      {
+        path: 'usuarios',
+        component: UsuariosComponent
+      }
     ]
   },
+
+  /* ===== FALLBACK ===== */
 
   {
     path: '**',

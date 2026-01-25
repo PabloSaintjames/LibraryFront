@@ -1,7 +1,4 @@
-<mat-card
-  class="book-card"
-  [class.animating]="animando"
->
+<mat-card class="book-card">
 
   <!-- PORTADA -->
   <img
@@ -29,19 +26,32 @@
   <!-- ACCIONES -->
   <mat-card-actions align="end">
 
-    @if (articulo.disponible) {
+    <!-- MODO ALQUILAR -->
+    @if (mode === 'alquilar' && articulo.disponible) {
 
       @if (puedeAlquilar) {
         <button
           mat-raised-button
           color="accent"
-          (click)="onAlquilar()"
+          (click)="accion.emit()"
         >
           Alquilar
         </button>
       } @else {
         <span class="muted">🔒 Solo usuarios registrados</span>
       }
+
+    }
+
+    <!-- MODO DEVOLVER -->
+    @if (mode === 'devolver') {
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="accion.emit()"
+      >
+        Devolver
+      </button>
 
     }
 

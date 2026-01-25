@@ -1,11 +1,10 @@
-<h3 class="menu-title">Library</h3>
+<div class="menu-title">Library</div>
 
 @for (item of menu; track item.route) {
   <a
     mat-button
     [routerLink]="item.route"
     routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
     (click)="onNavigate()"
   >
     <mat-icon>{{ item.icon }}</mat-icon>
