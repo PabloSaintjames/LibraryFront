@@ -30,7 +30,7 @@ export class MenuService {
       icon: 'people',
       route: '/app/usuarios',
       roles: ['ADMINISTRADOR']
-    }
+    },
   ];
 
   getVisibleMenu(): MenuItem[] {

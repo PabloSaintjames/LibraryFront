@@ -21,4 +21,20 @@ export class UsuarioService {
   getAll(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.API);
   }
+
+  create(data: {
+    nombre: string;
+    email: string;
+    password: string;
+    rol: string;
+  }): Observable<Usuario> {
+    return this.http.post<Usuario>(this.API, data);
+  }
+  update(id: number, data: any) {
+    return this.http.put(`${this.API}/${id}`, data);
+  }
+  delete(id: number) {
+    return this.http.delete(`${this.API}/${id}`);
+  }
+
 }

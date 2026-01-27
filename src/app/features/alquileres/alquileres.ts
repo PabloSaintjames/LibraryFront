@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlquilerService } from '../../core/services/alquiler.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -18,6 +18,7 @@ export class AlquileresComponent implements OnInit {
 
   private alquilerService = inject(AlquilerService);
   authService = inject(AuthService);
+  private cdr = inject(ChangeDetectorRef);
 
   alquileres: any[] = [];
   mensaje = '';
@@ -28,32 +29,44 @@ export class AlquileresComponent implements OnInit {
 
   cargarAlquileres(): void {
     this.alquilerService.getAll().subscribe({
-      next: data => this.alquileres = data,
-      error: () => this.mensaje = '❌ Error cargando alquileres'
-    });
-  }
-
-  devolver(id: number): void {
-    this.alquilerService.devolver(id).subscribe({
-      next: () => {
-        this.mensaje = '✅ Alquiler devuelto correctamente';
-        this.cargarAlquileres();
+      next: data => {
+        this.alquileres = data;
+        this.cdr.detectChanges(); // ✅ aquí
       },
       error: () => {
-        this.mensaje = '❌ No se pudo devolver el alquiler';
+        this.mensaje = '❌ Error cargando alquileres';
+        this.cdr.detectChanges(); // ✅ aquí
       }
     });
   }
 
-  /** Adaptador para reutilizar ArticuloCard */
+  devolver(alquilerId: number): void {
+    this.alquilerService.devolver(alquilerId).subscribe({
+      next: () => {
+        this.mensaje = '✅ Alquiler devuelto correctamente';
+        this.cargarAlquileres(); // ya refresca y detecta
+      },
+      error: () => {
+        this.mensaje = '❌ No se pudo devolver el alquiler';
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  /**
+   * Adaptador para reutilizar <app-articulo-card>
+   * Aquí está la clave
+   */
   toArticuloCard(a: any) {
+    const articulo = a.articulo;
+
     return {
-      id: a.id,
-      titulo: a.titulo,
-      autor: a.autor,
+      id: articulo.id,
+      titulo: articulo.titulo,
+      autor: articulo.autor,
       disponible: false,
-      portadaUrl: a.isbn
-        ? `https://covers.openlibrary.org/b/isbn/${a.isbn}-L.jpg`
+      portadaUrl: articulo.isbn
+        ? `https://covers.openlibrary.org/b/isbn/${articulo.isbn}-L.jpg`
         : null
     };
   }

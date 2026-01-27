@@ -1,0 +1,25 @@
+.dialog-form {
+  width: 420px;
+  max-width: 100%;
+  padding-top: 8px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/* Ajuste visual del título */
+::ng-deep .mat-mdc-dialog-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+/* Dark mode */
+body.dark-theme {
+  ::ng-deep .mat-mdc-dialog-container {
+    background-color: var(--surface-bg);
+    color: var(--text-primary);
+  }
+}

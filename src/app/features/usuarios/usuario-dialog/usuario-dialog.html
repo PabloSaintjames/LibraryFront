@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>
+  {{ esEdicion ? 'Editar usuario' : 'Nuevo usuario' }}
+</h2>
+
+<form [formGroup]="form">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="nombre">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Contraseña</mat-label>
+    <input matInput type="password" formControlName="password">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Rol</mat-label>
+    <mat-select formControlName="rol">
+      <mat-option *ngFor="let r of roles" [value]="r.value">
+        {{ r.label }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</form>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="guardar()">
+    {{ esEdicion ? 'Guardar cambios' : 'Crear usuario' }}
+  </button>
+</mat-dialog-actions>

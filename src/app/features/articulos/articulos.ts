@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ArticuloCardComponent } from './articulo-card/articulo-card';
 import { ArticuloService } from '../../core/services/articulo.service';
@@ -18,6 +18,7 @@ export class ArticulosComponent implements OnInit {
 
   private articuloService = inject(ArticuloService);
   authService = inject(AuthService);
+  private cdr = inject(ChangeDetectorRef);
 
   articulos: any[] = [];
   mensaje = '';
@@ -31,8 +32,14 @@ export class ArticulosComponent implements OnInit {
 
   cargarArticulos(): void {
     this.articuloService.getAll().subscribe({
-      next: (data) => this.articulos = data,
-      error: () => this.mensaje = '❌ Error cargando artículos'
+      next: (data) => {
+        this.articulos = data;
+        this.cdr.detectChanges(); // ✅ AQUÍ
+      },
+      error: () => {
+        this.mensaje = '❌ Error cargando artículos';
+        this.cdr.detectChanges(); // ✅ AQUÍ
+      }
     });
   }
 
@@ -51,11 +58,12 @@ export class ArticulosComponent implements OnInit {
       next: () => {
         this.mensaje = '✅ Artículo alquilado correctamente';
         this.animandoId = null;
-        this.cargarArticulos();
+        this.cargarArticulos(); // ya refresca dentro
       },
       error: () => {
         this.animandoId = null;
         this.mensaje = '❌ No se pudo alquilar el artículo';
+        this.cdr.detectChanges();
       }
     });
   }

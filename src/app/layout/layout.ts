@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import {ChangeDetectorRef, Component, inject, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -31,6 +31,7 @@ export class LayoutComponent {
 
   private breakpoint = inject(BreakpointObserver);
   readonly theme = inject(ThemeService);
+  private cdr = inject(ChangeDetectorRef);
 
   readonly isMobile = signal(false);
 
