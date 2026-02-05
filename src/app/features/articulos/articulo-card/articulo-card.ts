@@ -21,15 +21,16 @@ export class ArticuloCardComponent {
     titulo: string;
     autor?: string;
     disponible: boolean;
-    portadaUrl?: string | null;
+    portadaUrl?: string;
+    fechaAlquiler?: string;
+    fechaDevolucion?: string;
   };
 
-  /** Modo de la tarjeta */
-  @Input() mode: 'alquilar' | 'devolver' = 'alquilar';
+  @Input() mode: 'alquilar' | 'devolver' | 'readonly' = 'alquilar';
 
-  /** Permiso para alquilar */
-  @Input() puedeAlquilar = false;
+  /** 🔥 indica si la card está animando */
+  @Input() animando = false;
 
-  /** Acción principal */
   @Output() accion = new EventEmitter<void>();
 }
+

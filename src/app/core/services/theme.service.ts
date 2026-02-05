@@ -6,25 +6,33 @@ export class ThemeService {
   private dark = signal<boolean>(false);
 
   constructor() {
-    const stored = localStorage.getItem('dark') === 'true';
-    this.dark.set(stored);
-
-    this.applyTheme();
+    const darkStored = localStorage.getItem('dark') === 'true';
+    this.dark.set(darkStored);
+    document.body.classList.toggle('dark-theme', darkStored);
   }
 
   toggle(): void {
-    this.dark.update(v => !v);
-    localStorage.setItem('dark', String(this.dark()));
-    this.applyTheme();
+    const next = !this.dark();
+    this.dark.set(next);
+
+    localStorage.setItem('dark', String(next));
+    document.body.classList.toggle('dark-theme', next);
   }
 
   isDark(): boolean {
     return this.dark();
   }
 
-  /** Aplica clases globales */
-  private applyTheme(): void {
+
+private applyTheme(): void {
     document.body.classList.toggle('dark-theme', this.dark());
     document.body.classList.toggle('light-theme', !this.dark());
+
+    const favicon = document.getElementById('app-favicon') as HTMLLinkElement;
+    if (favicon) {
+      favicon.href = this.dark()
+        ? 'favicon-dark.ico'
+        : 'favicon-light.ico';
+    }
   }
 }

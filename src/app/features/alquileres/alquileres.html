@@ -1,24 +1,39 @@
 <h2 class="section-title">📦 Alquileres</h2>
 
 @if (mensaje) {
-  <div class="alert success">
-    {{ mensaje }}
-  </div>
+  <div class="alert success">{{ mensaje }}</div>
 }
 
-@if (alquileres.length === 0) {
+<!-- ================= ACTIVOS ================= -->
+<h3 class="subsection-title">🟢 Activos</h3>
+
+@if (alquileresActivos.length === 0) {
   <p class="empty">No tienes alquileres activos.</p>
 }
 
 <div class="card-grid">
-  @for (a of alquileres; track a.id) {
-
+  @for (a of alquileresActivos; track a.id) {
     <app-articulo-card
       [articulo]="toArticuloCard(a)"
       mode="devolver"
+      [animando]="animandoId === a.id"
       (accion)="devolver(a.id)"
-    >
-    </app-articulo-card>
+    />
+  }
+</div>
 
+<!-- ================= HISTORIAL ================= -->
+<h3 class="subsection-title">📦 Historial</h3>
+
+@if (alquileresDevueltos.length === 0) {
+  <p class="empty">No hay alquileres devueltos.</p>
+}
+
+<div class="card-grid muted-section">
+  @for (a of alquileresDevueltos; track a.id) {
+    <app-articulo-card
+      [articulo]="toArticuloCard(a)"
+      mode="readonly"
+    />
   }
 </div>

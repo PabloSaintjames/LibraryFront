@@ -14,7 +14,24 @@
   gap: 24px;
 }
 
+.subsection-title {
+  margin: 32px 0 16px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.muted-section {
+  opacity: 0.7;
+  pointer-events: none; // evita interacción accidental
+}
+
 .empty {
   color: var(--text-secondary);
-  margin-top: 12px;
+  font-size: 14px;
+}
+
+.book-card.animating {
+  pointer-events: none;
+  opacity: 0.85;
 }

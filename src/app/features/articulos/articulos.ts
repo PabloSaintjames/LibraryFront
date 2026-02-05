@@ -22,8 +22,6 @@ export class ArticulosComponent implements OnInit {
 
   articulos: any[] = [];
   mensaje = '';
-
-  /** id del artículo que está animando (al alquilar) */
   animandoId: number | null = null;
 
   ngOnInit(): void {
@@ -32,13 +30,13 @@ export class ArticulosComponent implements OnInit {
 
   cargarArticulos(): void {
     this.articuloService.getAll().subscribe({
-      next: (data) => {
+      next: data => {
         this.articulos = data;
-        this.cdr.detectChanges(); // ✅ AQUÍ
+        this.cdr.detectChanges();
       },
       error: () => {
         this.mensaje = '❌ Error cargando artículos';
-        this.cdr.detectChanges(); // ✅ AQUÍ
+        this.cdr.detectChanges();
       }
     });
   }
@@ -51,14 +49,13 @@ export class ArticulosComponent implements OnInit {
       return;
     }
 
-    // activa animación solo en esa tarjeta
     this.animandoId = articuloId;
 
     this.articuloService.alquilar(usuario.id, articuloId).subscribe({
       next: () => {
         this.mensaje = '✅ Artículo alquilado correctamente';
         this.animandoId = null;
-        this.cargarArticulos(); // ya refresca dentro
+        this.cargarArticulos();
       },
       error: () => {
         this.animandoId = null;

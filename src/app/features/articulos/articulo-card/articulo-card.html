@@ -1,13 +1,13 @@
-<mat-card class="book-card">
+<mat-card class="book-card" [class.returning]="animando">
 
   <!-- PORTADA -->
   <img
     mat-card-image
-    [src]="articulo.portadaUrl || 'assets/placeholder-book.jpg'"
+    [src]="articulo.portadaUrl ?? 'assets/placeholder-book.jpg'"
     alt="Portada del libro"
   />
 
-  <!-- OVERLAY ALQUILADO -->
+  <!-- Overlay SOLO si está alquilado -->
   @if (!articulo.disponible) {
     <div class="overlay">
       <span>ALQUILADO</span>
@@ -21,40 +21,51 @@
     @if (articulo.autor) {
       <p class="author">{{ articulo.autor }}</p>
     }
+
+    @if (articulo.fechaAlquiler) {
+      <p class="date">
+        📅 Alquilado: {{ articulo.fechaAlquiler | date:'dd/MM/yyyy' }}
+      </p>
+    }
+
+    @if (articulo.fechaDevolucion) {
+      <p class="date returned">
+        ✅ Devuelto: {{ articulo.fechaDevolucion | date:'dd/MM/yyyy' }}
+      </p>
+    }
+
+    @if (mode === 'readonly') {
+      <p class="status returned">DEVUELTO</p>
+    }
   </mat-card-content>
+
 
   <!-- ACCIONES -->
   <mat-card-actions align="end">
 
-    <!-- MODO ALQUILAR -->
+    <!-- 🟢 ALQUILAR -->
     @if (mode === 'alquilar' && articulo.disponible) {
-
-      @if (puedeAlquilar) {
-        <button
-          mat-raised-button
-          color="accent"
-          (click)="accion.emit()"
-        >
-          Alquilar
-        </button>
-      } @else {
-        <span class="muted">🔒 Solo usuarios registrados</span>
-      }
-
+      <button
+        mat-raised-button
+        color="accent"
+        [disabled]="animando"
+        (click)="accion.emit()"
+      >
+        {{ animando ? 'Alquilando…' : 'Alquilar' }}
+      </button>
     }
 
-    <!-- MODO DEVOLVER -->
+    <!-- 🔵 DEVOLVER -->
     @if (mode === 'devolver') {
       <button
         mat-raised-button
         color="primary"
+        [disabled]="animando"
         (click)="accion.emit()"
       >
-        Devolver
+        {{ animando ? 'Devolviendo…' : 'Devolver' }}
       </button>
-
     }
 
   </mat-card-actions>
-
 </mat-card>

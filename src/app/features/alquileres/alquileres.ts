@@ -1,27 +1,25 @@
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlquilerService } from '../../core/services/alquiler.service';
-import { AuthService } from '../../core/services/auth.service';
 import { ArticuloCardComponent } from '../articulos/articulo-card/articulo-card';
 
 @Component({
   selector: 'app-alquileres',
   standalone: true,
-  imports: [
-    CommonModule,
-    ArticuloCardComponent
-  ],
+  imports: [CommonModule, ArticuloCardComponent],
   templateUrl: './alquileres.html',
   styleUrls: ['./alquileres.scss']
 })
 export class AlquileresComponent implements OnInit {
 
   private alquilerService = inject(AlquilerService);
-  authService = inject(AuthService);
   private cdr = inject(ChangeDetectorRef);
 
-  alquileres: any[] = [];
+  alquileresActivos: any[] = [];
+  alquileresDevueltos: any[] = [];
+
   mensaje = '';
+  animandoId: number | null = null;
 
   ngOnInit(): void {
     this.cargarAlquileres();
@@ -30,44 +28,44 @@ export class AlquileresComponent implements OnInit {
   cargarAlquileres(): void {
     this.alquilerService.getAll().subscribe({
       next: data => {
-        this.alquileres = data;
-        this.cdr.detectChanges(); // ✅ aquí
+        this.alquileresActivos = data.filter(a => !a.fechaDevolucion);
+        this.alquileresDevueltos = data.filter(a => a.fechaDevolucion);
+        this.cdr.detectChanges();
       },
       error: () => {
         this.mensaje = '❌ Error cargando alquileres';
-        this.cdr.detectChanges(); // ✅ aquí
+        this.cdr.detectChanges();
       }
     });
   }
 
-  devolver(alquilerId: number): void {
-    this.alquilerService.devolver(alquilerId).subscribe({
+  devolver(id: number): void {
+    this.animandoId = id;
+
+    this.alquilerService.devolver(id).subscribe({
       next: () => {
         this.mensaje = '✅ Alquiler devuelto correctamente';
-        this.cargarAlquileres(); // ya refresca y detecta
+        this.animandoId = null;
+        this.cargarAlquileres();
       },
       error: () => {
+        this.animandoId = null;
         this.mensaje = '❌ No se pudo devolver el alquiler';
         this.cdr.detectChanges();
       }
     });
   }
 
-  /**
-   * Adaptador para reutilizar <app-articulo-card>
-   * Aquí está la clave
-   */
   toArticuloCard(a: any) {
-    const articulo = a.articulo;
-
     return {
-      id: articulo.id,
-      titulo: articulo.titulo,
-      autor: articulo.autor,
+      id: a.id,
+      titulo: a.articulo,
       disponible: false,
-      portadaUrl: articulo.isbn
-        ? `https://covers.openlibrary.org/b/isbn/${articulo.isbn}-L.jpg`
-        : null
+      portadaUrl: a.isbn
+        ? `https://covers.openlibrary.org/b/isbn/${a.isbn}-L.jpg`
+        : undefined,
+      fechaAlquiler: a.fechaAlquiler,
+      fechaDevolucion: a.fechaDevolucion
     };
   }
 }
