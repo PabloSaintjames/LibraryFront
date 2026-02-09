@@ -3,13 +3,20 @@ import { CommonModule } from '@angular/common';
 import { ArticuloCardComponent } from './articulo-card/articulo-card';
 import { ArticuloService } from '../../core/services/articulo.service';
 import { AuthService } from '../../core/services/auth.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ArticuloDialogComponent } from './articulo-dialog/articulo-dialog';
+import { MatIconModule } from '@angular/material/icon';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-articulos',
   standalone: true,
   imports: [
     CommonModule,
-    ArticuloCardComponent
+    ArticuloCardComponent,
+    MatIconModule,
+    MatDialogModule,
+    MatButton
   ],
   templateUrl: './articulos.html',
   styleUrls: ['./articulos.scss']
@@ -17,6 +24,7 @@ import { AuthService } from '../../core/services/auth.service';
 export class ArticulosComponent implements OnInit {
 
   private articuloService = inject(ArticuloService);
+  private dialog = inject(MatDialog);
   authService = inject(AuthService);
   private cdr = inject(ChangeDetectorRef);
 
@@ -64,4 +72,31 @@ export class ArticulosComponent implements OnInit {
       }
     });
   }
+
+  /* ======================
+     NUEVO ARTÍCULO
+     ====================== */
+
+  abrirDialogoCrear(): void {
+    const dialogRef = this.dialog.open(ArticuloDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) return;
+
+      this.articuloService.create(result).subscribe({
+        next: () => {
+          this.mensaje = '✅ Artículo creado correctamente';
+          this.cargarArticulos();
+        },
+        error: () => {
+          this.mensaje = '❌ Error al crear el artículo';
+          this.cdr.detectChanges();
+        }
+      });
+    });
+  }
+
 }
+
+
+

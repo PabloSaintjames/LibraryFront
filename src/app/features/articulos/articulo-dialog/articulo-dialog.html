@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>
+  {{ esEdicion ? 'Editar artículo' : 'Nuevo artículo' }}
+</h2>
+
+<form [formGroup]="form">
+
+  <form [formGroup]="form" class="dialog-form">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="titulo">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Autor</mat-label>
+      <input matInput formControlName="autor">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>ISBN</mat-label>
+      <input matInput formControlName="isbn">
+    </mat-form-field>
+
+  </form>
+
+
+</form>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="guardar()">
+    {{ esEdicion ? 'Guardar cambios' : 'Crear artículo' }}
+  </button>
+</mat-dialog-actions>

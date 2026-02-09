@@ -1,5 +1,18 @@
 <h2 class="section-title">📚 Artículos</h2>
 
+
+<div class="actions">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="abrirDialogoCrear()"
+  >
+    <mat-icon>add</mat-icon>
+    Nuevo artículo
+  </button>
+</div>
+
+
 @if (mensaje) {
   <div class="alert success">{{ mensaje }}</div>
 }
@@ -16,9 +29,7 @@
           ? 'https://covers.openlibrary.org/b/isbn/' + a.isbn + '-L.jpg'
           : undefined
       }"
-      mode="alquilar"
       (accion)="alquilar(a.id)"
     />
   }
 </div>
-

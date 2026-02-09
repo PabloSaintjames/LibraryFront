@@ -12,15 +12,33 @@ export class ArticuloService {
 
   constructor(private http: HttpClient) {}
 
+  // ======================
+  // OBTENER ARTÍCULOS
+  // ======================
   getAll(): Observable<Articulo[]> {
     return this.http.get<Articulo[]>(`${this.API_URL}/articulos`);
   }
 
+  // ======================
+  // ALQUILAR
+  // ======================
   alquilar(usuarioId: number, articuloId: number) {
     return this.http.post(`${this.API_URL}/alquileres`, {
       usuarioId,
       articuloId
     });
+  }
+
+  // ======================
+  // ✅ CREAR ARTÍCULO
+  // ======================
+  create(data: {
+    tipo: 'LIBRO';
+    titulo: string;
+    autor: string;
+    isbn: string;
+  }) {
+    return this.http.post(`${this.API_URL}/articulos`, data);
   }
 
 }
